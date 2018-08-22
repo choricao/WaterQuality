@@ -41,4 +41,21 @@ filtered_water$sampleTime <- mdy_hms(filtered_water$sampleTime)
 
 summary(filtered_water)
 
+# Correct data entry errors
+subset(filtered_water, unit == 'Feet')
+
+convert <- which(filtered_water$unit == 'Feet')
+filtered_water$unit[convert] <- 'Deg. Fahrenheit'
+
+summary(filtered_water)
+
+glimpse(subset(filtered_water, unit == 'MG/L'))
+
+glimpse(subset(filtered_water, unit == 'MG/L' & parameter == "PH"))
+
+convert <- which(filtered_water$unit == 'MG/L' & filtered_water$parameter == "PH")
+filtered_water$unit[convert] <- 'Standard units'
+
+
+
 
