@@ -100,3 +100,19 @@ filtered_water$unit[convert] <- 'Deg. Fahrenheit'
 ggplot(data = filtered_water, mapping = aes(x = unit, y = result)) +
   geom_boxplot()
 
+# 
+fahrenheit <- which(filtered_water$unit == "Deg. Fahrenheit")
+
+filtered_water$result[fahrenheit] <- (filtered_water$result[fahrenheit] - 32) * (5.0 / 9.0)
+ggplot(data = filtered_water, mapping = aes(x = unit, y = result)) +
+  geom_boxplot()
+
+filtered_water$unit[fahrenheit] <- 'Deg. Celsius'
+ggplot(data = filtered_water, mapping = aes(x = unit, y = result)) +
+  geom_boxplot()
+
+summary(filtered_water)
+
+filtered_water$unit <- droplevels(filtered_water$unit)
+summary(filtered_water)
+
