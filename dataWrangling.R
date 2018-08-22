@@ -30,3 +30,15 @@ unique(filtered_water$parameter)
 filtered_water <- subset(filtered_water, (parameter == "PH") | (parameter == "WATER TEMPERATURE"))
 glimpse(filtered_water)
 
+# Convert data types
+summary(filtered_water)
+
+filtered_water$siteType <- as.factor(filtered_water$siteType)
+filtered_water$parameterType <- as.factor(filtered_water$parameterType)
+filtered_water$parameter <- as.factor(filtered_water$parameter)
+filtered_water$unit <- as.factor(filtered_water$unit)
+filtered_water$sampleTime <- mdy_hms(filtered_water$sampleTime)
+
+summary(filtered_water)
+
+
