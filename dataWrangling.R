@@ -100,7 +100,7 @@ filtered_water$unit[convert] <- 'Deg. Fahrenheit'
 ggplot(data = filtered_water, mapping = aes(x = unit, y = result)) +
   geom_boxplot()
 
-# 
+# Convert temperature from F to C
 fahrenheit <- which(filtered_water$unit == "Deg. Fahrenheit")
 
 filtered_water$result[fahrenheit] <- (filtered_water$result[fahrenheit] - 32) * (5.0 / 9.0)
@@ -116,3 +116,20 @@ summary(filtered_water)
 filtered_water$unit <- droplevels(filtered_water$unit)
 summary(filtered_water)
 
+# Widen dataset
+filtered_water <- filtered_water[, -c(4, 7)]
+summary(filtered_water)
+
+filtered_water_wide <- spread(filtered_water, parameter, result)
+
+filtered_water[c(49274, 49342, 49219, 49284), ]
+
+dupe_check <- filtered_water[, -5]
+dupes <- which(duplicated(dupe_check))
+
+filtered_water <- filtered_water[-dupes, ]
+filtered_water_wide <- spread(filtered_water, parameter, result)
+glimpse(filtered_water_wide)
+
+colnames(filtered_water_wide)[4] <- 'pH'
+colnames(filtered_water_wide)[5] <- 'temperature'
